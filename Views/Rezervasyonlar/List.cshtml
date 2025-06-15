@@ -1,0 +1,84 @@
+﻿@model List<EthioAirLines.Models.RezervasyonViewModel>
+
+@{
+    ViewBag.Title = "Reservation List";
+    // These ViewBag properties must be populated in your RezervasyonlarController's List action
+    // Example: ViewBag.CurrentFlightId = flightId; ViewBag.CurrentPassengerName = passengerName;
+    // ViewBag.StatusOptions = new SelectList(new List<SelectListItem> { ... });
+}
+
+<div class="main-content">
+
+
+    <h2>Reservation List</h2>
+
+    @* Filter Form *@
+    <form class="search-form" method="get" action="@Url.Action("List", "Rezervasyonlar")">
+        <div class="form-group">
+            <label for="flightId">Flight ID:</label>
+            <input type="text" id="flightId" name="flightId" value="@(ViewBag.CurrentFlightId ?? "")" placeholder="Enter Flight ID" />
+        </div>
+        <div class="form-group">
+            <label for="passengerName">Passenger Name:</label>
+            <input type="text" id="passengerName" name="passengerName" value="@(ViewBag.CurrentPassengerName ?? "")" placeholder="Enter Passenger Name" />
+        </div>
+        <div class="form-group">
+            <label for="status">Status:</label>
+            @* Ensure ViewBag.StatusOptions is a SelectList in your controller's List action *@
+            @Html.DropDownList("status", (SelectList)ViewBag.StatusOptions, new { @class = "form-control" })
+        </div>
+        <button type="submit" class="btn btn-primary">Search</button>
+        @Html.ActionLink("Clear Filters", "List", null, new { @class = "btn btn-secondary" })
+    </form>
+    <p>
+        @Html.ActionLink("Make New Reservation", "Create", "Rezervasyonlar", null, new { @class = "btn" })
+    </p>
+
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Reservation ID</th>
+                <th>Flight ID</th>
+                <th>Passenger Name</th>
+                <th>Seat</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Pay</th>
+                <th>Cancel</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var r in Model)
+            {
+                <tr>
+                    <td>@r.Rezervasyon_ID</td>
+                    <td>@r.Ucus_ID</td>
+                    <td>@r.PassengerName</td>
+                    <td>@r.Koltuk_no</td>
+                    <td>@r.Tarih.ToString("MM/dd/yyyy hh:mm tt")</td>
+                    <td>@r.Durum</td>
+                    <td>
+                        @if (r.Durum == "Aktif")
+                        {
+                            @Html.ActionLink("Pay", "Create", "Odemeler", new { rezervasyonId = r.Rezervasyon_ID }, new { @class = "pay-link" })
+                        }
+                        else
+                        {
+                            <span>-</span>
+                        }
+                    </td>
+                    <td>
+                        @if (r.Durum != "Iptal")
+                        {
+                            @Html.ActionLink("Cancel", "Delete", "Rezervasyonlar", new { id = r.Rezervasyon_ID }, new { @class = "cancel-link" })
+                        }
+                        else
+                        {
+                            <span>Cancelled</span>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

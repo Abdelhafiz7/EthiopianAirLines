@@ -1,0 +1,38 @@
+﻿@model List<EthioAirLines.Models.Ucaklar>
+
+@{
+    ViewBag.Title = "Aircraft List";
+}
+
+<div class="main-content">
+    <h2>Aircraft List</h2>
+
+    <p>
+        @Html.ActionLink("Add New Aircraft", "Create", null, new { @class = "btn" })
+    </p>
+
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Aircraft ID</th>
+                <th>Model</th>
+                <th>Capacity</th>
+                <th>Actions</th> @* New column for Edit/Delete links *@
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var a in Model)
+            {
+                <tr>
+                    <td>@a.Ucak_ID</td>
+                    <td>@a.Model</td>
+                    <td>@a.Kapasite</td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = a.Ucak_ID }, new { @class = "btn-action edit-link" }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = a.Ucak_ID }, new { @class = "btn-action delete-link" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

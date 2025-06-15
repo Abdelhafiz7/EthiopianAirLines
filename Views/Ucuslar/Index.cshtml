@@ -1,0 +1,56 @@
+﻿@model List<EthioAirLines.Models.Ucuslar>
+
+@{
+    ViewBag.Title = "Flight List";
+}
+
+<div class="main-content">
+    @* Ensure the entire page content is wrapped in main-content *@
+    <h2>Flight List</h2>
+
+    @using (Html.BeginForm("Index", "Ucuslar", FormMethod.Get, new { @class = "search-form" }))
+    {
+        <label>From:</label>
+        <input type="text" name="from" value="@Request.QueryString["from"]" />
+        <label>To:</label>
+        <input type="text" name="to" value="@Request.QueryString["to"]" />
+        <button type="submit">Search</button>
+    }
+
+    <p>
+        @Html.ActionLink("Add New Flight", "Create", null, new { @class = "btn" })
+    </p>
+
+    <table class="data-table">
+        @* Removed border="1" and added class="data-table" *@
+        <thead>
+            <tr>
+                <th>Flight ID</th>
+                <th>From</th>
+                <th>To</th>
+                <th>Departure</th>
+                <th>Arrival</th>
+                <th>Aircraft ID</th>
+                <th>Reserve</th> @* Added this table header for the Reserve link *@
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var flight in Model)
+            {
+                <tr>
+                    <td>@flight.Ucus_ID</td>
+                    <td>@flight.Kalkis_havaalani</td>
+                    <td>@flight.Varis_havaalani</td>
+                    <td>@flight.Kalkis_saati.ToString("yyyy-MM-dd HH:mm")</td> @* Added formatting *@
+                    <td>@flight.Varis_saati.ToString("yyyy-MM-dd HH:mm")</td> @* Added formatting *@
+                    <td>@flight.Ucak_ID</td>
+                    <td>
+                        @Html.ActionLink("Reserve", "Create", "Rezervasyonlar", new { ucusId = flight.Ucus_ID }, new { @class = "btn-action" })
+                        @Html.ActionLink("Edit", "Edit", new { id = flight.Ucus_ID }, new { @class = "btn-action" })
+                        @Html.ActionLink("Delete", "Delete", new { id = flight.Ucus_ID }, new { @class = "btn-action btn-danger" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

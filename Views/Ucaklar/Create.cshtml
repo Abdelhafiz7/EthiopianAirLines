@@ -1,0 +1,30 @@
+﻿@{
+    ViewBag.Title = "Add Aircraft";
+}
+
+<div class="form-container">
+    <h2>Add Aircraft</h2>
+
+    @using (Html.BeginForm())
+    {
+        <div class="form-group">
+            @* Aircraft ID as a single field *@
+            <label>Aircraft ID:</label>
+            <input type="text" name="ucakId" required />
+        </div>
+
+        <div class="form-row">
+            @* Group Model and Capacity side-by-side *@
+            <div class="form-group">
+                <label>Model:</label>
+                <input type="text" name="model" required />
+            </div>
+            <div class="form-group">
+                <label>Capacity:</label>
+                <input type="number" name="kapasite" required />
+            </div>
+        </div>
+
+        <button type="submit">Add Aircraft</button>
+    }
+</div>

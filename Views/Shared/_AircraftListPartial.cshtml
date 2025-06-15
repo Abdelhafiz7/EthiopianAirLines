@@ -1,0 +1,31 @@
+﻿@model List<EthioAirLines.Models.Ucaklar>
+
+<h3>Aircrafts</h3>
+<p>
+    @Html.ActionLink("Add New Aircraft", "Create", "Ucaklar", null, new { @class = "btn" })
+</p>
+
+<table class="data-table">
+    @* Added class="data-table" and removed border="1" *@
+    <thead>
+        <tr>
+            <th>Aircraft ID</th>
+            <th>Model</th>
+            <th>Capacity</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var a in Model)
+        {
+            <tr>
+                <td>@a.Ucak_ID</td>
+                <td>@a.Model</td>
+                <td>@a.Kapasite</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<p class="view-all-link">
+    @Html.ActionLink("View All Aircrafts", "Index", "Ucaklar")
+</p>

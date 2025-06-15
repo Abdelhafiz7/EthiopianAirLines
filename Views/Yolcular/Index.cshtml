@@ -1,0 +1,38 @@
+﻿@model List<EthioAirLines.Models.Yolcular>
+
+@{
+    ViewBag.Title = "Passenger List";
+}
+
+<div class="main-content">
+    <h2>Passenger List</h2>
+
+    <p>
+        @Html.ActionLink("Add New Passenger", "Create", null, new { @class = "btn" })
+    </p>
+
+    <table class="data-table">
+        <tr>
+            <th>Passenger ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Actions</th> 
+        </tr>
+        @foreach (var p in Model)
+        {
+            <tr>
+                <td>@p.Yolcu_ID</td>
+                <td>@p.Adi</td>
+                <td>@p.Soyad</td>
+                <td>@p.Email</td>
+                <td>@p.Telefon</td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = p.Yolcu_ID }, new { @class = "btn-action edit-link" }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = p.Yolcu_ID }, new { @class = "btn-action delete-link" })
+                </td>
+            </tr>
+        }
+    </table>
+</div>

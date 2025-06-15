@@ -1,0 +1,59 @@
+﻿@model List<EthioAirLines.Models.RezervasyonViewModel>
+
+<h3>Reservations</h3>
+<p>
+    @Html.ActionLink("Make New Reservation", "Create", "Rezervasyonlar", null, new { @class = "btn" })
+</p>
+
+<table class="data-table">
+    @* Ensure this has class="data-table" and no border="1" *@
+    <thead>
+        <tr>
+            <th>Reservation ID</th>
+            <th>Flight ID</th>
+            <th>Passenger Name</th>
+            <th>Seat</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Pay</th>
+            <th>Cancel</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var r in Model)
+        {
+            <tr>
+                <td>@r.Rezervasyon_ID</td>
+                <td>@r.Ucus_ID</td>
+                <td>@r.PassengerName</td>
+                <td>@r.Koltuk_no</td>
+                <td>@r.Tarih.ToString("MM/dd/yyyy hh:mm tt")</td> 
+                <td>@r.Durum</td>
+                <td>
+                    @if (r.Durum == "Aktif")
+                    {
+                        @Html.ActionLink("Pay", "Create", "Odemeler", new { rezervasyonId = r.Rezervasyon_ID }, new { @class = "pay-link" })
+                    }
+                    else
+                    {
+                        <span>-</span>
+                    }
+                </td>
+                <td>
+                    @if (r.Durum != "Iptal")
+                    {
+                        @Html.ActionLink("Cancel", "Delete", "Rezervasyonlar", new { id = r.Rezervasyon_ID }, new { @class = "cancel-link" })
+                    }
+                    else
+                    {
+                        <span>Cancelled</span>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<p class="view-all-link">
+    @Html.ActionLink("View All Reservations", "List", "Rezervasyonlar")
+</p>

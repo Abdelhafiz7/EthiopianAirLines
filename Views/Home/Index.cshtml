@@ -1,0 +1,32 @@
+﻿@model EthioAirLines.Models.HomeViewModel
+
+@{
+    ViewBag.Title = "EthioAirLines Dashboard";
+}
+
+<div class="text-center">
+    <h2>EthioAirLines Management</h2>
+</div>
+
+<hr />
+
+<div class="dashboard-section">
+    @Html.Partial("_FlightListPartial", Model.Flights)
+</div>
+
+<hr />
+
+<div class="dashboard-section">
+    @Html.Partial("_ReservationListPartial", Model.Reservations)
+</div>
+
+<hr />
+
+<div class="dashboard-section">
+    @Html.Partial("_AircraftListPartial", Model.Aircrafts)
+</div>
+
+@* You can optionally add a general add button here if you want *@
+@* <p style="text-align: center; margin-top: 30px;">
+        @Html.ActionLink("Go to Flight Creation", "Create", "Ucuslar", null, new { @class = "btn" })
+    </p> *@

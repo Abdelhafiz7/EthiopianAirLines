@@ -1,0 +1,54 @@
+﻿@{
+    ViewBag.Title = "Add Flight";
+    var aircrafts = ViewBag.Aircrafts as List<EthioAirLines.Models.Ucaklar>;
+}
+
+<div class="form-container">
+    <h2>Add Flight</h2>
+
+    @using (Html.BeginForm())
+    {
+        <div class="form-group">
+            @* Flight ID should usually be its own group or auto-generated *@
+            <label>Flight ID:</label>
+            <input type="text" name="ucusId" required />
+        </div>
+
+        <div class="form-row">
+            @* Group From and To side-by-side *@
+            <div class="form-group">
+                <label>From:</label>
+                <input type="text" name="kalkis" required />
+            </div>
+            <div class="form-group">
+                <label>To:</label>
+                <input type="text" name="varis" required />
+            </div>
+        </div>
+
+        <div class="form-row">
+            @* Group Departure and Arrival side-by-side *@
+            <div class="form-group">
+                <label>Departure:</label>
+                <input type="datetime-local" name="kalkisSaati" required />
+            </div>
+            <div class="form-group">
+                <label>Arrival:</label>
+                <input type="datetime-local" name="varisSaati" required />
+            </div>
+        </div>
+
+        <div class="form-group">
+            @* Aircraft remains full width *@
+            <label>Aircraft:</label>
+            <select name="ucakId" required>
+                @foreach (var a in aircrafts)
+                {
+                    <option value="@a.Ucak_ID">@a.Ucak_ID - @a.Model</option>
+                }
+            </select>
+        </div>
+
+        <button type="submit">Add Flight</button>
+    }
+</div>

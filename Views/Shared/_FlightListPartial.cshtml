@@ -1,0 +1,41 @@
+﻿@model List<EthioAirLines.Models.Ucuslar>
+
+<h3>Flights</h3>
+<p>
+    @Html.ActionLink("Add New Flight", "Create", "Ucuslar", null, new { @class = "btn" })
+</p>
+
+<table class="data-table">
+    @* Added class="data-table" and removed border="1" *@
+    <thead>
+        <tr>
+            <th>Flight ID</th>
+            <th>From</th>
+            <th>To</th>
+            <th>Departure</th>
+            <th>Arrival</th>
+            <th>Aircraft ID</th>
+            <th>Reserve</th> @* Added this table header for the Reserve link *@
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var flight in Model)
+        {
+            <tr>
+                <td>@flight.Ucus_ID</td>
+                <td>@flight.Kalkis_havaalani</td>
+                <td>@flight.Varis_havaalani</td>
+                <td>@flight.Kalkis_saati.ToString("yyyy-MM-dd HH:mm")</td> @* Formatted DateTime for display *@
+                <td>@flight.Varis_saati.ToString("yyyy-MM-dd HH:mm")</td> @* Formatted DateTime for display *@
+                <td>@flight.Ucak_ID</td>
+                <td>
+                    @Html.ActionLink("Reserve", "Create", "Rezervasyonlar", new { ucusId = flight.Ucus_ID }, new { @class = "btn-action" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<p class="view-all-link">
+    @Html.ActionLink("View All Flights", "Index", "Ucuslar")
+</p>

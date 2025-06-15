@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - EthioAirLines</title>
+    @* Using our custom Site.css for all styling *@
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    @* If you had bundles for Bootstrap or other CSS, they would go here if you still need them.
+        For a clean custom style, often you'd remove or comment them out. *@
+    @* @Styles.Render("~/Content/css") *@
+</head>
+<body>
+    <!-- Navbar/Header Section -->
+    <nav class="navbar">
+        <div class="navbar-inner-container">
+            <a class="navbar-brand" href="/">EthioAirLines</a>
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="/Ucuslar/Index">Flights</a></li>
+                <li class="nav-item"><a class="nav-link" href="/Rezervasyonlar/List">Reservations</a></li>
+                <li class="nav-item"><a class="nav-link" href="/Ucaklar/Index">Aircrafts</a></li>
+                <li class="nav-item"><a class="nav-link" href="/Yolcular/Index">Passengers</a></li> 
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <div class="main-content">
+        @RenderBody()
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>&copy; @DateTime.Now.Year - EthioAirLines Application</p>
+    </footer>
+
+    @* Standard jQuery and Modernizr (if still needed) *@
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/modernizr")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
